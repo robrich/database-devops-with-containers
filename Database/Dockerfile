@@ -1,4 +1,4 @@
-FROM microsoft/mssql-server-linux as build
+FROM mcr.microsoft.com/mssql/server:latest-ubuntu as build
 
 ENV ACCEPT_EULA=Y
 ENV SA_PASSWORD=SecureP@ssw0rd
@@ -9,12 +9,12 @@ WORKDIR /tmp
 COPY prod-database.bak .
 COPY prod-to-dev.sql .
 
-RUN /opt/mssql/bin/sqlservr --accept-eula & sleep 20 \
+RUN /opt/mssql/bin/sqlservr --accept-eula & sleep 80 \
     && /opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P SecureP@ssw0rd -i /tmp/prod-to-dev.sql \
     && pkill sqlservr
 
 
-FROM microsoft/mssql-server-linux as dev
+FROM mcr.microsoft.com/mssql/server:latest-ubuntu as dev
 
 ENV ACCEPT_EULA=Y
 # SA_PASSWORD is already baked into database

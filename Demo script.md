@@ -10,19 +10,20 @@ SQL MANAGEMENT STUDIO
 localhost
 
 BACKUP DATABASE WebApp
-TO DISK = 'C:\Users\Rob\Desktop\sql-server\Database\prod-database.bak'
+TO DISK = 'C:\Users\Rob\Desktop\Database DevOps with Containers\Database\prod-database.bak'
 WITH FORMAT,
 NAME = 'WebApp';
 
 DOCKER
 ------
-cd c:\Users\Rob\Desktop\sql-server\Database
+admin command prompt
+cd c:\Users\Rob\Desktop\Database DevOps with Containers\Database
 docker build -t dev-database .
-docker run -p 2433:1433 dev-database
+docker run -p 1433:1433 dev-database
 
 SQL MANAGEMENT STUDIO
 ---------------------
-localhost,2433
+minikube
 sa
 D3vP@ssw0rd
 
