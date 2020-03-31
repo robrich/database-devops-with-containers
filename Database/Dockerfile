@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/mssql/server:latest-ubuntu as build
+FROM mcr.microsoft.com/mssql/server:2017-latest as build
 
 ENV ACCEPT_EULA=Y
 ENV SA_PASSWORD=SecureP@ssw0rd
@@ -14,7 +14,7 @@ RUN /opt/mssql/bin/sqlservr --accept-eula & sleep 80 \
     && pkill sqlservr
 
 
-FROM mcr.microsoft.com/mssql/server:latest-ubuntu as dev
+FROM mcr.microsoft.com/mssql/server:2017-latest as dev
 
 ENV ACCEPT_EULA=Y
 # SA_PASSWORD is already baked into database
