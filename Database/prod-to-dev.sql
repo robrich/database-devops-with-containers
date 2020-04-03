@@ -6,6 +6,10 @@ MOVE 'WebApp' TO '/var/opt/mssql/data/webapp.mdf',
 MOVE 'WebApp_Log' TO '/var/opt/mssql/data/webapp.ldf',
 NOUNLOAD, REPLACE, STATS = 5
 GO
+
+CREATE LOGIN [AppUser] WITH PASSWORD=N'production', DEFAULT_DATABASE=[WebApp], DEFAULT_LANGUAGE=[us_english], CHECK_EXPIRATION=OFF, CHECK_POLICY=OFF
+GO
+
 USE [WebApp]
 -- Sanitize data
 UPDATE dbo.Customer SET Email = CAST(NEWID() as nvarchar(50)) + '@contoso.com'
@@ -31,7 +35,17 @@ DBCC SHRINKFILE (N'WebApp_Log', 1) WITH NO_INFOMSGS -- 1 is size in mb
 GO
 
 -- Solve orphaned user, set dev password
+-- Grand Read/Write to AppUser
+
+ALTER ROLE [db_datareader] ADD MEMBER [AppUser]
+GO
+USE [WebApp]
+GO
+ALTER ROLE [db_datawriter] ADD MEMBER [AppUser]
+GO
+--ALERT  This does not works
 EXEC sp_change_users_login 'Auto_Fix', 'AppUser', NULL, 'D3vP@ssw0rd'
 GO
 ALTER LOGIN SA WITH PASSWORD='D3vP@ssw0rd'
 GO
+-- ALERT Also we need data in the DB as the web site fails if there is no data OR manage the error in th web app
