@@ -43,7 +43,7 @@ USE [WebApp]
 GO
 ALTER ROLE [db_datawriter] ADD MEMBER [AppUser]
 GO
---ALERT  This does not works
+--ALERT  This does not works nor the following one
 EXEC sp_change_users_login 'Auto_Fix', 'AppUser', NULL, 'D3vP@ssw0rd'
 GO
 ALTER LOGIN SA WITH PASSWORD='D3vP@ssw0rd'
