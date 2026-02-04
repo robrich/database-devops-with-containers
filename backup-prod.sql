@@ -1,6 +1,7 @@
 USE WebApp
 GO
 SELECT * FROM dbo.Customer
+-- thanks https://randomuser.me/
 GO
 SELECT * FROM dbo.InvoiceLog
 GO

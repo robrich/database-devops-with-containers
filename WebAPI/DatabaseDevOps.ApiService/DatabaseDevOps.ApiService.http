@@ -1,0 +1,11 @@
+@ApiService_HostAddress = http://localhost:5330
+
+GET {{ApiService_HostAddress}}/customer/0
+Accept: application/json
+
+###
+
+GET {{ApiService_HostAddress}}/invoice/0
+Accept: application/json
+
+###

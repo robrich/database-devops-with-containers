@@ -11,10 +11,11 @@ CREATE LOGIN [AppUser] WITH PASSWORD=N'production', DEFAULT_DATABASE=[WebApp], D
 GO
 
 USE [WebApp]
--- Sanitize data
+-- Anonymize data
 UPDATE dbo.Customer SET Email = CAST(NEWID() as nvarchar(50)) + '@contoso.com'
 -- Fake user data from https://randomuser.me/
 GO
+-- Sanitize data
 UPDATE dbo.Settings SET [Secret] = 'dev-safe' WHERE Name = 'ApiKey'
 GO
 UPDATE dbo.Settings SET [Secret] = CAST(GETDATE() as nvarchar(50)) WHERE Name = 'BuildDate'

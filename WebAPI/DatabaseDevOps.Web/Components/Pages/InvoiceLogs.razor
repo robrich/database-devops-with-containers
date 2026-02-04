@@ -1,0 +1,44 @@
+﻿@page "/invoicelogs"
+@attribute [StreamRendering(true)]
+@attribute [OutputCache(Duration = 1)]
+
+@inject ApiClient ApiClient
+
+<PageTitle>Invoice Logs</PageTitle>
+
+<h1>Invoice Logs</h1>
+
+@if (model == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <p>Page: @model.Page</p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Create Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var invoice in model.InvoiceLogs)
+            {
+                <tr>
+                    <td>@invoice.InvoiceLogId</td>
+                    <td>@invoice.CreateDate.ToShortDateString()</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private InvoiceLogViewModel? model;
+
+    protected override async Task OnInitializedAsync()
+    {
+        model = await ApiClient.GetInvoiceLogs(page: 0);
+    }
+}

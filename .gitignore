@@ -1,5 +1,14 @@
-.vscode
+# downloaded files
+# built files
 bin
 obj
-.vs
+# user-specific files
+.DS_Store
 *.bak
+.vscode
+.vs
+*.suo
+*.user
+# temp files
+*.orig
+# secrets

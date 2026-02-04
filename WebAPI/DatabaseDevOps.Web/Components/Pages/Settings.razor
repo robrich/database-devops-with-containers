@@ -1,0 +1,43 @@
+﻿@page "/settings"
+@attribute [StreamRendering(true)]
+@attribute [OutputCache(Duration = 1)]
+
+@inject ApiClient ApiClient
+
+<PageTitle>Settings</PageTitle>
+
+<h1>Settings</h1>
+
+@if (model == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Secret</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var setting in model)
+            {
+                <tr>
+                    <td>@setting.Name</td>
+                    <td>@setting.Secret</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Setting>? model;
+
+    protected override async Task OnInitializedAsync()
+    {
+        model = await ApiClient.GetSettings();
+    }
+}

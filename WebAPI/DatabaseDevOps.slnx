@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="DatabaseDevOps.Models/DatabaseDevOps.Models.csproj" />
+  <Project Path="DatabaseDevOps.ApiService/DatabaseDevOps.ApiService.csproj" />
+  <Project Path="DatabaseDevOps.AppHost/DatabaseDevOps.AppHost.csproj" />
+  <Project Path="DatabaseDevOps.ServiceDefaults/DatabaseDevOps.ServiceDefaults.csproj" />
+  <Project Path="DatabaseDevOps.Web/DatabaseDevOps.Web.csproj" />
+</Solution>

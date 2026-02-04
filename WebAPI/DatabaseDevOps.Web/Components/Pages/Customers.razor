@@ -1,0 +1,48 @@
+﻿@page "/customers"
+@attribute [StreamRendering(true)]
+@attribute [OutputCache(Duration = 1)]
+
+@inject ApiClient ApiClient
+
+<PageTitle>Customers</PageTitle>
+
+<h1>Customers</h1>
+
+@if (model == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <p>Page: @model.Page</p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var customer in model.Customers)
+            {
+                <tr>
+                    <td>@customer.CustomerId</td>
+                    <td>@customer.Username</td>
+                    <td>@customer.Email</td>
+                    <td>@customer.FirstName @customer.LastName</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private CustomerViewModel? model;
+
+    protected override async Task OnInitializedAsync()
+    {
+        model = await ApiClient.GetCustomers(page: 0);
+    }
+}
